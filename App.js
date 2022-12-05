@@ -1,23 +1,22 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Button } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
-  const goalInputHandler = (inputText) => {
-    console.log(inputText);
-  };
-
-  const addGoalHandler = () => {};
+  const [goals, setGoals] = React.useState([]);
+  const [modelVisible, setModelVisible] = React.useState(false);
 
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.inputField} placeholder="please input your goal" onChangeText={goalInputHandler} />
-        <Button title="add goal" />
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button title="Add new goal" color="orange" onPress={() => setModelVisible((current) => !current)} />
+        <GoalInput setGoalList={setGoals} modelVisible={modelVisible} setModelVisible={setModelVisible} />
+        <GoalItem goals={goals} setGoals={setGoals} />
       </View>
-
-      <View style={styles.goalsContainer}>
-        <Text>List of goals...</Text>
-      </View>
-    </View>
+    </>
   );
 }
 
@@ -27,24 +26,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'column',
     flex: 1,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-    flex: 1,
-  },
-  inputField: {
-    width: '70%',
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    marginRight: 8,
-    padding: 3,
-  },
-  goalsContainer: {
-    flex: 5,
+    backgroundColor: '#1e085a',
   },
 });
